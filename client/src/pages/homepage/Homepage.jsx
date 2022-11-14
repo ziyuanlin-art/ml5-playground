@@ -16,7 +16,7 @@ function Homepage() {
   return (
     <div className={styles.page}>
       <div className={styles.title_box}>
-        <h1 className={styles.title}>Welcome to NN Playground</h1>
+        <h1>Welcome to NN Playground</h1>
         <Button text="Get Started" handleClick={onStartClicked}/>
       </div>
     </div>
