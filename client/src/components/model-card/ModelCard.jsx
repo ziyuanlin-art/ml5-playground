@@ -11,7 +11,7 @@ function ModelCard({ image, name, description, link }) {
   }
 
   return (
-    <div className={styles.card} onClick={handleClick}>
+    <div className={styles.container} onClick={handleClick}>
       <img className={styles.image} src={image} alt=""></img>
       <div className={styles.text}>
         <h1 className={styles.name}>{name}</h1>
