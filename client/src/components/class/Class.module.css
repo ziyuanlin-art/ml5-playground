@@ -1,0 +1,12 @@
+.container {
+  background-color: rgb(230, 230, 230);
+  padding: 2rem;
+  margin: 3rem 0;
+}
+
+.samples {
+  overflow: y scroll;
+  height: 8rem;
+  margin: 1rem 0;
+  background-color: rgb(210, 210, 210);
+}

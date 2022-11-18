@@ -1,0 +1,29 @@
+.page {
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.title {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  margin: 0;
+}
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+.left {
+  flex: 0 0 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.right {
+  flex: 0 0 50%;
+  overflow: auto;
+}

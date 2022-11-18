@@ -1,0 +1,11 @@
+.input {
+  border: none;
+  background-color: transparent;
+  border-bottom: 0.15rem solid black;
+  font-size: 2rem;
+}
+
+.input:focus {
+  outline: none;
+  border-bottom: 0.2rem solid black;
+}
