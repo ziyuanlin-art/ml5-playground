@@ -2,13 +2,13 @@ import React from "react";
 import styles from "./TextInput.module.css";
 import { useState } from "react";
 
-function TextInput({ value, handleChange }) {
+function TextInput({ value, onInputChange }) {
 
   const [inputValue, setInputValue] = useState(value);
 
-  const onInputChange = (e) => {
+  const handleChange = (e) => {
     setInputValue(e.target.value);
-    handleChange(e.target.value);
+    onInputChange(e.target.value);
   }
 
   return (
@@ -18,7 +18,7 @@ function TextInput({ value, handleChange }) {
         name="class name"
         type="text"
         value={inputValue}
-        onChange={onInputChange}
+        onChange={handleChange}
       />
     </div>
   );
