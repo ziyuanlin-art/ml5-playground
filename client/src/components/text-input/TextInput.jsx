@@ -8,7 +8,7 @@ function TextInput({ value, onInputChange }) {
 
   const handleChange = (e) => {
     setInputValue(e.target.value);
-    onInputChange(e.target.value);
+    onInputChange();
   }
 
   return (

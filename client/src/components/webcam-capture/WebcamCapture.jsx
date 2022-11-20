@@ -3,6 +3,7 @@ import styles from './WebcamCapture.module.css';
 import Button from '../button/Button';
 import { useState, useContext, useRef } from 'react';
 import WebcamStreamContext from '../../contexts/webcamStreamContext';
+import VideoCanvas from '../video-canvas/VideoCanvas';
 
 function WebcamCapture() {
   const webcamContext = useContext(WebcamStreamContext);
@@ -24,7 +25,8 @@ function WebcamCapture() {
   return (
     <div className={styles.container}>
         {isWebcamOn ? 
-          <video className={styles.webcam} ref={videoRef}></video>:
+          // <video className={styles.webcam} ref={videoRef}></video>:
+          <VideoCanvas />:
           <Button onClick={onStartClicked}>Start Webcam</Button>
         }
     </div>
