@@ -1,36 +1,30 @@
-import React from 'react';
-import styles from './WebcamCapture.module.css';
-import Button from '../button/Button';
-import { useState, useContext, useRef } from 'react';
-import WebcamStreamContext from '../../contexts/webcamStreamContext';
-import VideoCanvas from '../video-canvas/VideoCanvas';
+import React from "react";
+import styles from "./WebcamCapture.module.css";
+import Button from "../button/Button";
+import { useState, useContext } from "react";
+import WebcamStreamContext from "../../contexts/webcamStreamContext";
+import HandposeContext from "../../contexts/handposeContext";
+import VideoCanvas from "../video-canvas/VideoCanvas";
 
 function WebcamCapture() {
-  const webcamContext = useContext(WebcamStreamContext);
-  const [isWebcamOn, setIsWebcamOn] = useState(false);
+  const startWebcam = useContext(WebcamStreamContext).startWebcamStream;
+  const modelReady = useContext(HandposeContext).modelReady;
+  const [started, setStarted] = useState(false);
 
-  const videoRef = useRef(null);
-  
   const onStartClicked = () => {
-    setIsWebcamOn(true);
-    webcamContext.startWebcamStream();
-  }
+    setStarted(true);
+    startWebcam();
+  };
 
-  const video = videoRef.current;
-  if (video && webcamContext.webcamStream) {
-    video.srcObject = webcamContext.webcamStream;
-    video.play();
-  }
+  const display = () => {
+    if (modelReady) return <VideoCanvas />;
+    else {
+      if (started) return <div>Loading webcam and model...</div>;
+      else return <Button onClick={onStartClicked}>Start Webcam</Button>;
+    }
+  };
 
-  return (
-    <div className={styles.container}>
-        {isWebcamOn ? 
-          // <video className={styles.webcam} ref={videoRef}></video>:
-          <VideoCanvas />:
-          <Button onClick={onStartClicked}>Start Webcam</Button>
-        }
-    </div>
-  );
+  return <div className={styles.container}>{display()}</div>;
 }
 
 export default WebcamCapture;

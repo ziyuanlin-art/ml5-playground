@@ -9,7 +9,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/models" element={<ModelSelectionPage />} />
-        <Route path="/hand-classification" element={<HandClassificationPage />} />
+        <Route path="/hand-classification/*" element={<HandClassificationPage />} />
       </Routes>
     </BrowserRouter>
   );

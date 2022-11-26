@@ -1,0 +1,37 @@
+.container {
+  background-color: rgb(230, 230, 230);
+  margin-top: 1rem;
+  width: 30rem;
+}
+
+.classBar {
+  margin: 1rem; 
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  padding: 0.5rem;
+  align-items: center;
+}
+
+.bar {
+  flex: 1 1 auto;
+  height: 1.5rem;
+}
+
+.innerBar {
+  background-color: rgb(0, 0, 0);
+  height: 100%;
+}
+
+.name {
+  flex: 0 0 7rem;
+  overflow-wrap: break-word;
+  word-break: break-all;
+  padding-right: 0.5rem;
+}
+
+.confidence {
+  padding-left: 0.5rem;
+  flex: 0 0 4.5rem;
+  text-align: right;
+}

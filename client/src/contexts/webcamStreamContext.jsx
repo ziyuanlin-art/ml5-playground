@@ -8,7 +8,7 @@ import { createContext, useState, useRef } from 'react';
 const WebcamStreamContext = createContext({
     webcamVideo: null,
     webcamStream: null,
-    setWebcamStream: () => { }
+    startWebcamStream: () => { }
 });
 
 export function WebcamStreamProvider({ children }) {

@@ -1,29 +1,33 @@
 import React from "react";
 import styles from "./HandClassificationPage.module.css";
-import WebcamCapture from "../../components/webcam-capture/WebcamCapture";
-import ClassList from "../../components/class-list/ClassList";
 import { WebcamStreamProvider } from "../../contexts/webcamStreamContext";
 import { HandposeProvider } from "../../contexts/handposeContext";
+import { HandDataProvider } from "../../contexts/handDataContext";
+import { NeuralNetworkProvider } from "../../contexts/neuralNetworkContext";
+import { Routes, Route } from "react-router-dom";
+import HandClassificationDataSection from "./HandClassificationDataSection";
+import HandClassificationTrainSection from "./HandClassificationTrainSection";
+import HandClassificationHeader from "./HandClassificationHeader";
+import HandClassificationFooter from "./HandClassificationFooter";
 
 function HandClassificationPage() {
-
-
   return (
-    <div className={styles.page}>
-      <WebcamStreamProvider>
-        <HandposeProvider>
-          <h1 className={styles.title}>Hand Classification</h1>
-
-          <div className={styles.left}>
-            <WebcamCapture />
-          </div>
-
-          <div className={styles.right}>
-            <ClassList />
-          </div>
-        </HandposeProvider>
-      </WebcamStreamProvider>
-    </div>
+    <WebcamStreamProvider>
+      <HandposeProvider>
+        <HandDataProvider>
+          <NeuralNetworkProvider>
+            <div className={styles.page}>
+              <HandClassificationHeader />
+              <Routes>
+                <Route path="data" element={<HandClassificationDataSection />} />
+                <Route path="train" element={<HandClassificationTrainSection />} />
+              </Routes>
+              <HandClassificationFooter />
+            </div>
+          </NeuralNetworkProvider>
+        </HandDataProvider>
+      </HandposeProvider>
+    </WebcamStreamProvider>
   );
 }
 

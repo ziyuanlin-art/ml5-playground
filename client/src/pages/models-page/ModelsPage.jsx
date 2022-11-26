@@ -13,7 +13,7 @@ function ModelsPage() {
           image={placeholder}
           name="Hand Gesture Classification"
           description="Train a classification model from hand keypoints from Handpose"
-          link="/hand-classification"
+          link="/hand-classification/data"
         />
         <ModelCard
           image={placeholder}
