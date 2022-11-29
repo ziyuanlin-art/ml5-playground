@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./WebcamClassificationPreview.module.css";
 import ClassBar from "./ClassBar";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import HandDataContext from "../../contexts/handDataContext";
 import NeuralNetworkContext from "../../contexts/neuralNetworkContext";
 import HandposeContext from "../../contexts/handposeContext";
@@ -27,8 +27,6 @@ function WebcamClassificationPreview() {
   };
 
   classifyData();
-
-  console.log(results);
 
   let classConfidenceBars = [];
 
