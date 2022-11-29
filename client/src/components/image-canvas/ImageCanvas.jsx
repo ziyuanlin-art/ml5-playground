@@ -10,7 +10,7 @@ function ImageCanvas() {
 
   const video = useContext(WebcamStreamContext).webcamVideo;
   const hand = useContext(HandposeContext).handPosition;
-
+  
   const draw = () => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");

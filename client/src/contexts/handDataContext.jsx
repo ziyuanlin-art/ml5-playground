@@ -24,6 +24,8 @@ export function HandDataProvider({ children }) {
     };
     newData.index = handDataRef.current[classId].samples.length;
     newData.preview = <ImageCanvas key={newData.index} />;
+    //newData.preview = document.createElement('canvas');
+    
     handDataRef.current[classId].samples = [...handDataRef.current[classId].samples, newData];
 
     console.log(handDataRef.current);
