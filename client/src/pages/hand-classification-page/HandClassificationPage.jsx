@@ -7,6 +7,7 @@ import { NeuralNetworkProvider } from "../../contexts/neuralNetworkContext";
 import { Routes, Route } from "react-router-dom";
 import HandClassificationDataSection from "./HandClassificationDataSection";
 import HandClassificationTrainSection from "./HandClassificationTrainSection";
+import HandClassificationDownloadSection from "./HandClassificationDownloadSection";
 import HandClassificationHeader from "./HandClassificationHeader";
 import HandClassificationFooter from "./HandClassificationFooter";
 
@@ -21,6 +22,7 @@ function HandClassificationPage() {
               <Routes>
                 <Route path="data" element={<HandClassificationDataSection />} />
                 <Route path="train" element={<HandClassificationTrainSection />} />
+                <Route path="download" element={<HandClassificationDownloadSection />} />
               </Routes>
               <HandClassificationFooter />
             </div>

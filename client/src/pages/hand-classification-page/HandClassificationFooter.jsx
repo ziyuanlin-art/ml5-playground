@@ -4,7 +4,7 @@ import Button from "../../components/button/Button";
 import { useNavigate } from "react-router-dom";
 
 function HandClassificationFooter() {
-  const links = ["data", "train"];
+  const links = ["data", "train", "download"];
   const navigate = useNavigate();
 
   let index = links.indexOf(window.location.pathname.split("/")[2]);

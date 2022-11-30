@@ -3,7 +3,7 @@ import { createContext, useRef, useState } from "react";
 import ml5 from "ml5";
 
 const NeuralNetworkContext = createContext({
-  neuralNetwork: null,
+  model: null,
   trainModel: (options, data) => {},
   training : false,
   modelReady: false,

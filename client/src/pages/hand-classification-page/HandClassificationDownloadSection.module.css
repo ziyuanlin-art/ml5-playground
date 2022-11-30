@@ -4,16 +4,7 @@
   flex-direction: row;
   flex-wrap: nowrap;
   overflow: hidden;
-}
 
-.left {
-  flex: 0 0 50%;
-  display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.right {
-  flex: 0 0 50%;
-  overflow: auto;
 }

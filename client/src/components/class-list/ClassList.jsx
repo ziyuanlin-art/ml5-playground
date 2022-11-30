@@ -2,15 +2,15 @@ import React from "react";
 import styles from "./ClassList.module.css";
 import Class from "../../components/class/Class";
 import Button from "../../components/button/Button";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef} from "react";
 import HandDataContext from "../../contexts/handDataContext";
 
 function ClassList() {
   const addClass = useContext(HandDataContext).addClass;
   const removeClass = useContext(HandDataContext).removeClass;
-  const getClassNames = useContext(HandDataContext).getClassNames;
+  const classDataRef = useContext(HandDataContext).data;
+  const idCounterRef = useContext(HandDataContext).counterRef;
 
-  const [idCounter, setIdCounter] = useState(0);
   const [classes, setClasses] = useState([]);
 
   const deleteClass = (classId) => {
@@ -19,22 +19,20 @@ function ClassList() {
   };
 
   const onAddClass = () => {
-    setIdCounter((idCounter) => idCounter + 1);
-    
-    setClasses((prev) => [...prev, { classId: idCounter, name: "Class " + (idCounter + 1) }]);
-    addClass(idCounter, "Class " + (idCounter + 1));
+    const id = idCounterRef.current;
+    setClasses((prev) => [...prev, { classId: id + "", name: "Class " + id }]);
+    addClass(id + "", "Class " + id);
   };
 
   useEffect(() => {
+    const classData = classDataRef.current;
     let classes = [];
-    getClassNames().forEach(element => {
-      classes.push({classId: classes.length, name: element});
-    });
+    for (let classId in classData) {
+      classes.push({ classId: classId, name: classData[classId].name });
+    }
     setClasses(classes);
-    setIdCounter(classes.length);
     // eslint-disable-next-line
   }, []);
-  
 
   return (
     <div className={styles.container}>
