@@ -7,42 +7,29 @@ import NeuralNetworkContext from "../../contexts/neuralNetworkContext";
 import HandposeContext from "../../contexts/handposeContext";
 
 function WebcamClassificationPreview() {
+  console.log("rerendering");
   const classify = useContext(NeuralNetworkContext).classify;
-  const classes = useContext(HandDataContext).getClassNames();
+  const modelReady = useContext(NeuralNetworkContext).modelReady;
+  const getClassNames = useContext(HandDataContext).getClassNames;
   const flattenedData = useContext(HandposeContext).flattenedPosition;
   const [results, setResults] = useState([]);
-  //used to dispose infinite loop on unmount
-  const mountedRef = useRef(false);
+
+  const classes = getClassNames();
 
   //infinite loop with useState to continuously update results
   const classifyData = () => {
-    if (!mountedRef.current) return;
     if (flattenedData.current && classify) {
       classify(flattenedData.current, (err, res) => {
         if (err) {
           console.log(err);
         } else {
           setResults(res);
-          classifyData();
         }
       });
     }
-    else {
-      //retry after 10ms
-      setTimeout(classifyData, 10);
-    }
   };
-  
 
-  useEffect(() => {
-
-    mountedRef.current = true;
-    classifyData();
-    return () => {
-      mountedRef.current = false;
-    }
-    // eslint-disable-next-line
-  }, []);
+  classifyData();
 
   let classConfidenceBars = [];
 
@@ -53,17 +40,11 @@ function WebcamClassificationPreview() {
         confidence = Math.round(item.confidence * 100);
       }
     });
-    
-    classConfidenceBars.push(
-      <ClassBar name={classes[i]} confidence={confidence} key={i} />
-    );
+
+    classConfidenceBars.push(<ClassBar name={classes[i]} confidence={confidence} key={i} />);
   }
 
-  return (
-    <div className={styles.container}>
-      {classConfidenceBars}
-    </div>
-  );
+  return <div className={styles.container}>{classConfidenceBars}</div>;
 }
 
 export default WebcamClassificationPreview;

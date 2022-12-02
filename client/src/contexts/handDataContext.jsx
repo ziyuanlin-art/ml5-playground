@@ -1,5 +1,5 @@
 import React from "react";
-import { createContext, useRef, useContext} from "react";
+import { createContext, useRef, useContext, useState} from "react";
 import WebcamStreamContext from "./webcamStreamContext";
 
 const HandDataContext = createContext({
@@ -9,7 +9,7 @@ const HandDataContext = createContext({
   addClass: (classId, className) => {},
   removeClass: (classId) => {},
   setClassName: (classId, className) => {},
-  getPreviews: (classId) => {},
+  getSamples: (classId) => {},
   getClassNames: () => {},
   getDataArray: () => {},
   counterRef: null,
@@ -20,26 +20,35 @@ export function HandDataProvider({ children }) {
 
   const video = useContext(WebcamStreamContext).webcamVideo;
 
-  const handDataRef = useRef({
+  const [handData, setHandData] = useState({
     1: { name: "Class 1", samples: [] },
     2: { name: "Class 2", samples: [] }
   });
 
   const addSample = (newSample, classId) => {
-    const newData = {
+    const sample = {
       index: 0,
       sample: newSample,
       preview: null
     };
-    newData.index = handDataRef.current[classId].samples.length;
-    newData.preview = createPreview(newData.sample);
-    handDataRef.current[classId].samples = [...handDataRef.current[classId].samples, newData];
-    console.log(handDataRef.current);
+    sample.index = handData[classId].samples.length;
+    sample.preview = createPreview(sample.sample);
+
+    setHandData((prevData) => {
+      let newData = { ...prevData };
+      newData[classId].samples.push(sample);
+      return newData;
+    });
+    console.log(handData);
   };
 
   const removeSample = (classId, sampleIndex) => {
-    handDataRef.current[classId].samples.splice(sampleIndex, 1);
-    console.log(handDataRef.current);
+    setHandData((prevData) => {
+      let newData = { ...prevData };
+      newData[classId].samples.splice(sampleIndex, 1);
+      return newData;
+    });
+    console.log(handData);
   };
 
 
@@ -65,17 +74,24 @@ export function HandDataProvider({ children }) {
   };
 
   const addClass = (classId, className) => {
-    handDataRef.current[classId] = {
-      name: className,
-      samples: []
-    };
+    setHandData((prevData) => {
+      let newData = { ...prevData };
+      newData[classId] = { name: className, samples: [] };
+      return newData;
+    });
+
     counterRef.current += 1;
-    console.log(handDataRef.current);
+    console.log(handData);
   };
 
   const removeClass = (classId) => {
-    delete handDataRef.current[classId];
-    console.log(handDataRef.current);
+    setHandData((prevData) => {
+      let newData = { ...prevData };
+      delete newData[classId];
+      return newData;
+    });
+
+    console.log(handData);
   };
   
   /**
@@ -84,35 +100,34 @@ export function HandDataProvider({ children }) {
    * @param {string} className 
    */
   const setClassName = (classId, className) => {
-    handDataRef.current[classId].name = className;
-    console.log(handDataRef.current);
+    setHandData((prevData) => {
+      let newData = { ...prevData };
+      newData[classId].name = className;
+      return newData;
+    });
+
+    console.log(handData);
   };
 
-  const getPreviews = (classId) => {
-    let handData = handDataRef.current;
-    console.log(handData);
-    let previews = [];
-    for (let i = 0; i < handData[classId].samples.length; i++) {
-      previews.push(handData[classId].samples[i].preview);
-    }
-    return previews;
+  const getSamples = (classId) => {
+    return handData[classId].samples;
   };
 
   const getClassNames = () => {
     let classNames = [];
-    for (const classId in handDataRef.current) {
-      classNames.push(handDataRef.current[classId].name);
+    for (const classId in handData) {
+      classNames.push(handData[classId].name);
     }
     return classNames;
   };
 
   const getDataArray = () => {
     let dataArray = [];
-    for (const classId in handDataRef.current) {
-      for (let i = 0; i < handDataRef.current[classId].samples.length; i++) {
+    for (const classId in handData) {
+      for (let i = 0; i < handData[classId].samples.length; i++) {
         dataArray.push({
-          input: handDataRef.current[classId].samples[i].sample,
-          output: handDataRef.current[classId].name
+          input: handData[classId].samples[i].sample,
+          output: handData[classId].name
         });
       }
     }
@@ -120,13 +135,13 @@ export function HandDataProvider({ children }) {
   };
 
   const context = {
-    data: handDataRef,
+    data: handData,
     addSample: addSample,
     removeSample: removeSample,
     addClass: addClass,
     removeClass: removeClass,
     setClassName: setClassName,
-    getPreviews: getPreviews,
+    getSamples: getSamples,
     getClassNames: getClassNames,
     getDataArray: getDataArray,
     counterRef: counterRef
