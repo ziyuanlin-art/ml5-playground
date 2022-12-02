@@ -17,7 +17,7 @@ function VideoCanvas() {
     const ctx = canvas.getContext("2d");
 
     ctx.clearRect(0, 0, 300, 225);
-    ctx.fillStyle = "red";
+    ctx.fillStyle = "rgb(0, 255, 0)";
 
     ctx.save();
     ctx.scale(-1, 1);

@@ -1,14 +1,30 @@
 import React from "react";
 import styles from "./ImageCanvas.module.css";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 
-function ImageCanvas({ preview }) {
+function ImageCanvas({ preview, deleteSelf }) {
   const canvasRef = useRef(null);
+  const [isMouseOver, setIsMouseOver] = useState(false);
 
   const draw = () => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
-    ctx.drawImage(preview, 0, 0);
+    ctx.fillStyle = "red";
+    canvas.width = canvas.height / preview.height * preview.width;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(preview, 0, 0, canvas.width, canvas.height);
+  };
+  
+  const mouseEnter = () => {
+    setIsMouseOver(true);
+  };
+
+  const mouseLeave = () => {
+    setIsMouseOver(false);
+  };
+
+  const deleteSample = () => {
+    deleteSelf();
   };
 
   useEffect(() => {
@@ -17,8 +33,9 @@ function ImageCanvas({ preview }) {
   }, []);
 
   return (
-    <div className={styles.container}>
-      <canvas className={styles.canvas} ref={canvasRef} width="60px" height="45px"></canvas>
+    <div className={styles.container} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave}>
+      {isMouseOver? <div className={styles.deleteButton} onClick={deleteSample}>Delete</div>: null}
+      <canvas className={styles.canvas} ref={canvasRef}></canvas>
     </div>
   );
 }

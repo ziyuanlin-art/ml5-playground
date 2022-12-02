@@ -1,7 +1,19 @@
 .canvas {
-
+  height: 100%;
 }
 
 .container {
   padding: 0 0.2rem;
+  position: relative;
+}
+
+.deleteButton {
+  font-weight: bolder;
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  border: 0.3rem solid white;
 }

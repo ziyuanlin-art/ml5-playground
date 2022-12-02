@@ -5,6 +5,7 @@
 }
 
 .samples {
+  overflow-y: hidden;
   overflow-x: scroll;
   height: 8rem;
   margin: 1rem 0 0 0;

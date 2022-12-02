@@ -1,11 +1,11 @@
 import React from "react";
-import { createContext, useRef, useContext } from "react";
-import ImageCanvas from "../components/image-canvas/ImageCanvas";
+import { createContext, useRef, useContext} from "react";
 import WebcamStreamContext from "./webcamStreamContext";
 
 const HandDataContext = createContext({
   data: [],
   addSample: (sample, classId) => {},
+  removeSample: (classId, sampleIndex) => {},
   addClass: (classId, className) => {},
   removeClass: (classId) => {},
   setClassName: (classId, className) => {},
@@ -34,22 +34,31 @@ export function HandDataProvider({ children }) {
     newData.index = handDataRef.current[classId].samples.length;
     newData.preview = createPreview(newData.sample);
     handDataRef.current[classId].samples = [...handDataRef.current[classId].samples, newData];
+    console.log(handDataRef.current);
   };
+
+  const removeSample = (classId, sampleIndex) => {
+    handDataRef.current[classId].samples.splice(sampleIndex, 1);
+    console.log(handDataRef.current);
+  };
+
 
   const createPreview = (sample) => {
     const canvas = document.createElement("canvas");
+    canvas.width = 120;
+    canvas.height = 90;
     const ctx = canvas.getContext("2d");
 
-    ctx.fillStyle = "red";
+    ctx.fillStyle = "rgb(0, 255, 0)";
 
     ctx.save();
     ctx.scale(-1, 1);
-    ctx.translate(-60, 0);
+    ctx.translate(-120, 0);
 
-    ctx.drawImage(video, 0, 0, 60, 45);
+    ctx.drawImage(video, 0, 0, 120, 90);
 
     for (let i = 0; i < sample.length; i += 2) {
-      ctx.fillRect((sample[i] / 640) * 60, (sample[i + 1] / 480) * 45, 1, 1);
+      ctx.fillRect((sample[i] / 640) * 120, (sample[i + 1] / 480) * 90, 3, 3);
     }
     ctx.restore();
     return canvas;
@@ -80,10 +89,11 @@ export function HandDataProvider({ children }) {
   };
 
   const getPreviews = (classId) => {
+    let handData = handDataRef.current;
+    console.log(handData);
     let previews = [];
-    for (let i = 0; i < handDataRef.current[classId].samples.length; i++) {
-      let data = handDataRef.current[classId].samples[i];
-      previews.push(<ImageCanvas key={data.index} preview={data.preview}></ImageCanvas>);
+    for (let i = 0; i < handData[classId].samples.length; i++) {
+      previews.push(handData[classId].samples[i].preview);
     }
     return previews;
   };
@@ -112,6 +122,7 @@ export function HandDataProvider({ children }) {
   const context = {
     data: handDataRef,
     addSample: addSample,
+    removeSample: removeSample,
     addClass: addClass,
     removeClass: removeClass,
     setClassName: setClassName,

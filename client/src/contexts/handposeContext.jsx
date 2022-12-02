@@ -33,13 +33,15 @@ export function HandposeProvider({ children }) {
           if (results.length > 0) {
             flattenedPositionRef.current = flattenData(results[0].landmarks);
           }
+          else {
+            flattenedPositionRef.current = null;
+          }
         });
       });
     }
   }, [video]);
 
   const flattenData = (data) => {
-    if(!data) return null;
     let flattenedData = [];
     data.forEach((item) => {
       flattenedData.push(item[0]);
