@@ -1,23 +1,21 @@
 import React from "react";
 import styles from "./WebcamClassificationPreview.module.css";
 import ClassBar from "./ClassBar";
-import { useContext, useState, useEffect, useRef } from "react";
+import { useContext, useState } from "react";
 import HandDataContext from "../../contexts/handDataContext";
 import NeuralNetworkContext from "../../contexts/neuralNetworkContext";
 import HandposeContext from "../../contexts/handposeContext";
 
 function WebcamClassificationPreview() {
-  console.log("rerendering");
   const classify = useContext(NeuralNetworkContext).classify;
-  const modelReady = useContext(NeuralNetworkContext).modelReady;
-  const getClassNames = useContext(HandDataContext).getClassNames;
+  const classes = useContext(HandDataContext).getClassNames();
   const flattenedData = useContext(HandposeContext).flattenedPosition;
   const [results, setResults] = useState([]);
 
-  const classes = getClassNames();
 
   //infinite loop with useState to continuously update results
   const classifyData = () => {
+
     if (flattenedData.current && classify) {
       classify(flattenedData.current, (err, res) => {
         if (err) {
@@ -40,11 +38,17 @@ function WebcamClassificationPreview() {
         confidence = Math.round(item.confidence * 100);
       }
     });
-
-    classConfidenceBars.push(<ClassBar name={classes[i]} confidence={confidence} key={i} />);
+    
+    classConfidenceBars.push(
+      <ClassBar name={classes[i]} confidence={confidence} key={i} />
+    );
   }
 
-  return <div className={styles.container}>{classConfidenceBars}</div>;
+  return (
+    <div className={styles.container}>
+      {classConfidenceBars}
+    </div>
+  );
 }
 
 export default WebcamClassificationPreview;

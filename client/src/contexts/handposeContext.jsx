@@ -33,9 +33,6 @@ export function HandposeProvider({ children }) {
           if (results.length > 0) {
             flattenedPositionRef.current = flattenData(results[0].landmarks);
           }
-          else {
-            flattenedPositionRef.current = null;
-          }
         });
       });
     }
