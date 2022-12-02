@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./ClassList.module.css";
 import Class from "../../components/class/Class";
 import Button from "../../components/button/Button";
-import { useState, useEffect, useContext, useRef} from "react";
+import { useState, useEffect, useContext } from "react";
 import HandDataContext from "../../contexts/handDataContext";
 
 function ClassList() {
