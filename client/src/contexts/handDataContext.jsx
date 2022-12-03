@@ -3,7 +3,7 @@ import { createContext, useRef, useContext, useState} from "react";
 import WebcamStreamContext from "./webcamStreamContext";
 
 const HandDataContext = createContext({
-  data: [],
+  data: {},
   addSample: (sample, classId) => {},
   removeSample: (classId, sampleIndex) => {},
   addClass: (classId, className) => {},
@@ -16,6 +16,7 @@ const HandDataContext = createContext({
 });
 
 export function HandDataProvider({ children }) {
+  
   const counterRef = useRef(3);
 
   const video = useContext(WebcamStreamContext).webcamVideo;
@@ -25,13 +26,15 @@ export function HandDataProvider({ children }) {
     2: { name: "Class 2", samples: [] }
   });
 
+  console.log("HandDataContext: " + handData);
+  
   const addSample = (newSample, classId) => {
     const sample = {
-      index: 0,
+      myindex: 0,
       sample: newSample,
       preview: null
     };
-    sample.index = handData[classId].samples.length;
+    sample.myindex = "i" + handData[classId].samples.length;
     sample.preview = createPreview(sample.sample);
 
     setHandData((prevData) => {
@@ -39,7 +42,6 @@ export function HandDataProvider({ children }) {
       newData[classId].samples.push(sample);
       return newData;
     });
-    console.log(handData);
   };
 
   const removeSample = (classId, sampleIndex) => {
@@ -48,7 +50,6 @@ export function HandDataProvider({ children }) {
       newData[classId].samples.splice(sampleIndex, 1);
       return newData;
     });
-    console.log(handData);
   };
 
 
@@ -81,7 +82,6 @@ export function HandDataProvider({ children }) {
     });
 
     counterRef.current += 1;
-    console.log(handData);
   };
 
   const removeClass = (classId) => {
@@ -90,8 +90,6 @@ export function HandDataProvider({ children }) {
       delete newData[classId];
       return newData;
     });
-
-    console.log(handData);
   };
   
   /**
@@ -105,8 +103,6 @@ export function HandDataProvider({ children }) {
       newData[classId].name = className;
       return newData;
     });
-
-    console.log(handData);
   };
 
   const getSamples = (classId) => {

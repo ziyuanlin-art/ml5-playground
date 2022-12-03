@@ -1,14 +1,14 @@
 import React from "react";
 import styles from "./Class.module.css";
 import Button from "../../components/button/Button";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import TextInput from "../text-input/TextInput";
 import HandposeContext from "../../contexts/handposeContext";
 import HandDataContext from "../../contexts/handDataContext";
 import ImageCanvas from "../image-canvas/ImageCanvas";
 
 function Class({ classId, name, deleteClass }) {
-  
+  console.log("Class" + classId + " rendered");
 
   const addSample = useContext(HandDataContext).addSample;
   const removeSample = useContext(HandDataContext).removeSample;
@@ -17,7 +17,6 @@ function Class({ classId, name, deleteClass }) {
   const flattenedPositionRef = useContext(HandposeContext).flattenedPosition;
 
   const samples = getSamples(classId);
-  console.log(samples);
 
   let previews = [];
 
@@ -44,20 +43,27 @@ function Class({ classId, name, deleteClass }) {
     deleteClass();
   };
 
-  const createCanvases = () => {
-    for(let i = 0; i < samples.length; i++){
-      previews.push(<ImageCanvas key={i} preview={samples[i].preview} deleteSelf={() => {onRemoveSample(i)}}></ImageCanvas>)
-    } 
-  }
+  // const createCanvases = () => {
+  //   for(let i = 0; i < samples.length; i++){
+  //     previews.push(<ImageCanvas key={i} preview={samples[i].preview} deleteSelf={() => {onRemoveSample(i)}}></ImageCanvas>)
+  //   } 
+  // }
 
-  createCanvases();
+  // createCanvases();
 
   return (
     <div className={styles.container}>
       <TextInput value={name} onInputChange={changeClassName} />
 
-      <div className={styles.samples}>{previews}</div>
-      <div className={styles.sample_count}>{previews.length} samples added</div>
+      <div className={styles.samples}>
+        {samples.map((sample, index) => {
+          return (
+            <ImageCanvas key={index} preview={sample.preview} deleteSelf={() => { onRemoveSample(index) }}></ImageCanvas>
+          )
+        })}
+
+      </div>
+      <div className={styles.sample_count}>{samples.length} samples added</div>
       <div className={styles.button_container}>
         <Button onClick={onAddSample}>Add Sample</Button>
         <Button onClick={onRemoveClass}>Remove Class</Button>

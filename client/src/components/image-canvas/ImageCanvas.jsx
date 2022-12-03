@@ -2,14 +2,13 @@ import React from "react";
 import styles from "./ImageCanvas.module.css";
 import { useRef, useEffect, useState } from "react";
 
-function ImageCanvas({ preview, deleteSelf }) {
+function ImageCanvas({ preview, deleteSelf}) {
   const canvasRef = useRef(null);
   const [isMouseOver, setIsMouseOver] = useState(false);
 
   const draw = () => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
-    ctx.fillStyle = "red";
     canvas.width = canvas.height / preview.height * preview.width;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(preview, 0, 0, canvas.width, canvas.height);
@@ -30,7 +29,7 @@ function ImageCanvas({ preview, deleteSelf }) {
   useEffect(() => {
     draw();
     // eslint-disable-next-line
-  }, []);
+  }, [preview]);
 
   return (
     <div className={styles.container} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave}>
