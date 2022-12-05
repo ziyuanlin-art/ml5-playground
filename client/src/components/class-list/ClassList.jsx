@@ -8,25 +8,25 @@ import HandDataContext from "../../contexts/handDataContext";
 function ClassList() {
   const addClass = useContext(HandDataContext).addClass;
   const removeClass = useContext(HandDataContext).removeClass;
-  const classData = useContext(HandDataContext).data;
-  const idCounterRef = useContext(HandDataContext).counterRef;
+  const getData = useContext(HandDataContext).getData;
+
+  const data = getData();
 
   const deleteClass = (classId) => {
     removeClass(classId);
   };
 
   const onAddClass = () => {
-    const id = idCounterRef.current;
-    addClass(id + "", "Class " + id);
+    addClass();
   };
 
   let classes = [];
-  for (let classId in classData) {
+  for (let classId in data) {
     classes.push(
       <Class
         key={classId}
         classId={classId}
-        name={classData[classId].name}
+        name={data[classId].name}
         deleteClass={() => {
           deleteClass(classId);
         }}

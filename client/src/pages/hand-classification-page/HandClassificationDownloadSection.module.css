@@ -1,10 +1,30 @@
 .section {
   flex: 1 1 auto;
+  
+  overflow-y: auto;
+
+}
+
+.project {
+  margin: 4rem auto;
+  width: 550px;
+
+}
+
+.button {
+  margin: 2rem auto;
+  text-align: center;
+}
+
+.selector {
+  background-color: rgb(230, 230, 230);
+  padding: 2rem;
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
-  overflow: hidden;
-
+  font-size: 1.8rem;
   align-items: center;
-  justify-content: center;
+}
+
+.prompt {
+  padding-right: 2rem;
 }

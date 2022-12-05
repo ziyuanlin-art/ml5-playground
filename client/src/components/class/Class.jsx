@@ -18,9 +18,6 @@ function Class({ classId, name, deleteClass }) {
 
   const samples = getSamples(classId);
 
-  let previews = [];
-
-
   const changeClassName = (newName) => {
     setClassName(classId, newName);
   };
@@ -43,14 +40,6 @@ function Class({ classId, name, deleteClass }) {
     deleteClass();
   };
 
-  // const createCanvases = () => {
-  //   for(let i = 0; i < samples.length; i++){
-  //     previews.push(<ImageCanvas key={i} preview={samples[i].preview} deleteSelf={() => {onRemoveSample(i)}}></ImageCanvas>)
-  //   } 
-  // }
-
-  // createCanvases();
-
   return (
     <div className={styles.container}>
       <TextInput value={name} onInputChange={changeClassName} />
@@ -58,10 +47,15 @@ function Class({ classId, name, deleteClass }) {
       <div className={styles.samples}>
         {samples.map((sample, index) => {
           return (
-            <ImageCanvas key={index} preview={sample.preview} deleteSelf={() => { onRemoveSample(index) }}></ImageCanvas>
-          )
+            <ImageCanvas
+              key={index}
+              preview={sample.preview}
+              deleteSelf={() => {
+                onRemoveSample(index);
+              }}
+            ></ImageCanvas>
+          );
         })}
-
       </div>
       <div className={styles.sample_count}>{samples.length} samples added</div>
       <div className={styles.button_container}>

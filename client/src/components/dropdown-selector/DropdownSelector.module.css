@@ -1,0 +1,9 @@
+.selector {
+  background-color: transparent;
+  border: none;
+  border-bottom: 0.15rem solid rgb(139, 139, 139);
+  font-size: 1.6rem;
+  font-family: inherit;
+  outline: none;
+  cursor: pointer;
+}
