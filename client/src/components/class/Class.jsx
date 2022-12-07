@@ -8,8 +8,7 @@ import HandDataContext from "../../contexts/handDataContext";
 import ImageCanvas from "../image-canvas/ImageCanvas";
 
 function Class({ classId, name, deleteClass }) {
-  console.log("Class" + classId + " rendered");
-
+  console.log("Class.jsx: classId: " + classId + ", name: " + name);
   const addSample = useContext(HandDataContext).addSample;
   const removeSample = useContext(HandDataContext).removeSample;
   const getSamples = useContext(HandDataContext).getSamples;
@@ -40,22 +39,25 @@ function Class({ classId, name, deleteClass }) {
     deleteClass();
   };
 
+  let sampleComponents = [];
+  samples.map((sample, index) => {
+    sampleComponents.push(
+      <ImageCanvas
+        key={sample.id}
+        preview={sample.preview}
+        deleteSelf={() => {
+          onRemoveSample(index);
+        }}
+      />
+    );
+  });
+
   return (
     <div className={styles.container}>
       <TextInput value={name} onInputChange={changeClassName} />
 
       <div className={styles.samples}>
-        {samples.map((sample, index) => {
-          return (
-            <ImageCanvas
-              key={index}
-              preview={sample.preview}
-              deleteSelf={() => {
-                onRemoveSample(index);
-              }}
-            ></ImageCanvas>
-          );
-        })}
+        {sampleComponents}
       </div>
       <div className={styles.sample_count}>{samples.length} samples added</div>
       <div className={styles.button_container}>

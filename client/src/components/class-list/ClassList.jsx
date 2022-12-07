@@ -21,18 +21,18 @@ function ClassList() {
   };
 
   let classes = [];
-  for (let classId in data) {
+  data.map((classData, index) => {
     classes.push(
       <Class
-        key={classId}
-        classId={classId}
-        name={data[classId].name}
+        key={classData.id}
+        classId={index}
+        name={classData.name}
         deleteClass={() => {
-          deleteClass(classId);
+          deleteClass(index);
         }}
-      />
+      ></Class>
     );
-  }
+  });
 
   return (
     <div className={styles.container}>

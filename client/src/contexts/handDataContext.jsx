@@ -22,13 +22,14 @@ const HandDataContext = createContext({
 
 export function HandDataProvider({ children }) {
   const classCounterRef = useRef(2);
+  const sampleCounterRef = useRef(0);
 
   const video = useContext(WebcamStreamContext).webcamVideo;
 
-  const [handData, setHandData] = useState({
-    1: { name: "Class 1", samples: [] },
-    2: { name: "Class 2", samples: [] }
-  });
+  const [handData, setHandData] = useState([
+    { id: 1, name: "Class 1", samples: [] },
+    { id: 2, name: "Class 2", samples: [] }
+  ]);
 
   /**
    * Get the data stored in the context.
@@ -39,6 +40,7 @@ export function HandDataProvider({ children }) {
     return handData;
   };
 
+  console.log(handData);
   /**
    * Add a new sample to a given class.
    *
@@ -47,16 +49,17 @@ export function HandDataProvider({ children }) {
    */
   const addSample = (newSample, classId) => {
     const sample = {
+      id: sampleCounterRef.current,
       sample: newSample,
-      preview: null
+      preview: createPreview(newSample)
     };
-    sample.preview = createPreview(sample.sample);
 
     setHandData((prevData) => {
-      let newData = { ...prevData };
+      let newData = [ ...prevData ];
       newData[classId].samples.push(sample);
       return newData;
     });
+    sampleCounterRef.current++;
   };
 
   /**
@@ -67,7 +70,7 @@ export function HandDataProvider({ children }) {
    */
   const removeSample = (classId, sampleIndex) => {
     setHandData((prevData) => {
-      let newData = { ...prevData };
+      let newData = [ ...prevData ];
       newData[classId].samples.splice(sampleIndex, 1);
       return newData;
     });
@@ -107,12 +110,12 @@ export function HandDataProvider({ children }) {
    */
   const addClass = () => {
     classCounterRef.current += 1;
-    const classId = classCounterRef.current;
+    const id = classCounterRef.current;
     const className = "Class " + classCounterRef.current;
 
     setHandData((prevData) => {
-      let newData = { ...prevData };
-      newData[classId] = { name: className, samples: [] };
+      let newData = [...prevData];
+      newData.push({ id: id, name: className, samples: [] });
       return newData;
     });
   };
@@ -124,9 +127,7 @@ export function HandDataProvider({ children }) {
    */
   const removeClass = (classId) => {
     setHandData((prevData) => {
-      let newData = { ...prevData };
-      delete newData[classId];
-      return newData;
+      return prevData.filter((_, index) => index != classId);
     });
   };
 
@@ -138,7 +139,7 @@ export function HandDataProvider({ children }) {
    */
   const setClassName = (classId, newName) => {
     setHandData((prevData) => {
-      let newData = { ...prevData };
+      let newData = [ ...prevData ];
       newData[classId].name = newName;
       return newData;
     });
@@ -154,10 +155,16 @@ export function HandDataProvider({ children }) {
     return handData[classId].samples;
   };
 
+  /**
+   * Returns an array of class names.
+   * The array is ordered by class ID.
+   * 
+   * @returns {string[]} An array of class names.
+   */
   const getClassNames = () => {
     let classNames = [];
-    for (const classId in handData) {
-      classNames.push(handData[classId].name);
+    for (let i = 0; i < handData.length; i++) {
+      classNames.push(handData[i].name);
     }
     return classNames;
   };

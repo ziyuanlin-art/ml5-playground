@@ -4,11 +4,11 @@ import Button from "../../components/button/Button";
 import { useNavigate } from "react-router-dom";
 
 function HandClassificationFooter() {
-  const links = ["data", "train", "download"];
+  const links = ["data", "layers", "train", "download"];
   const navigate = useNavigate();
-
+  
   let index = links.indexOf(window.location.pathname.split("/")[2]);
-
+  
   const toPreviousStep = () => {
     if (index - 1 >= 0) {
       navigate(links[index - 1], { replace: true });
@@ -20,6 +20,8 @@ function HandClassificationFooter() {
       navigate(links[index + 1], { replace: true });
     }
   };
+
+
 
   return (
     <div className={styles.footer}>

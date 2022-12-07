@@ -1,8 +1,4 @@
-/**
- * This is used to provide hand position
- * This uses ml5.js' handpose model to predict hand position
- *
- */
+
 
 import React from "react";
 import { createContext, useContext, useRef, useEffect } from "react";
@@ -15,7 +11,11 @@ const HandposeContext = createContext({
   flattenedPosition: null,
   modelReady: false
 });
-
+/**
+ * This is used to provide hand position
+ * This uses ml5.js' handpose model to predict hand position
+ *
+ */
 export function HandposeProvider({ children }) {
   const handposeRef = useRef(null);
   const handPositionRef = useRef(null);

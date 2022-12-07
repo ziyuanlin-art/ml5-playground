@@ -28,8 +28,7 @@ function ImageCanvas({ preview, deleteSelf}) {
 
   useEffect(() => {
     draw();
-    // eslint-disable-next-line
-  }, [preview]);
+  }, []);
 
   return (
     <div className={styles.container} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave}>

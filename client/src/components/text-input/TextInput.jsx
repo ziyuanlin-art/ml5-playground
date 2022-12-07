@@ -19,6 +19,7 @@ function TextInput({ value, onInputChange }) {
         type="text"
         value={inputValue}
         onChange={handleChange}
+        autoComplete="off"
       />
     </div>
   );

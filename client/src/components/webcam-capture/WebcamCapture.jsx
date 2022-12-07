@@ -6,6 +6,11 @@ import WebcamStreamContext from "../../contexts/webcamStreamContext";
 import HandposeContext from "../../contexts/handposeContext";
 import VideoCanvas from "../video-canvas/VideoCanvas";
 
+/**
+ * Component that displays the webcam capture and the positions of the landmark points.
+ *
+ * @returns {JSX.Element} The webcam capture component.
+ */
 function WebcamCapture() {
   const startWebcam = useContext(WebcamStreamContext).startWebcamStream;
   const modelReady = useContext(HandposeContext).modelReady;
