@@ -8,12 +8,12 @@ import HandDataContext from "../../contexts/handDataContext";
 import ImageCanvas from "../image-canvas/ImageCanvas";
 
 function Class({ classId, name, deleteClass }) {
-  console.log("Class.jsx: classId: " + classId + ", name: " + name);
   const addSample = useContext(HandDataContext).addSample;
   const removeSample = useContext(HandDataContext).removeSample;
   const getSamples = useContext(HandDataContext).getSamples;
   const setClassName = useContext(HandDataContext).setClassName;
   const flattenedPositionRef = useContext(HandposeContext).flattenedPosition;
+  const isHandInFrame = useContext(HandposeContext).isHandInFrame;
 
   const samples = getSamples(classId);
 
@@ -24,7 +24,7 @@ function Class({ classId, name, deleteClass }) {
   const onAddSample = () => {
     //flatten the handpose prediction array
     const flattenedSample = flattenedPositionRef.current;
-    if (flattenedSample) {
+    if (isHandInFrame()) {
       //add data to the hand data context
       addSample(flattenedSample, classId);
     }
@@ -39,9 +39,8 @@ function Class({ classId, name, deleteClass }) {
     deleteClass();
   };
 
-  let sampleComponents = [];
-  samples.map((sample, index) => {
-    sampleComponents.push(
+  const sampleComponents = samples.map((sample, index) => {
+    return (
       <ImageCanvas
         key={sample.id}
         preview={sample.preview}
@@ -56,9 +55,7 @@ function Class({ classId, name, deleteClass }) {
     <div className={styles.container}>
       <TextInput value={name} onInputChange={changeClassName} />
 
-      <div className={styles.samples}>
-        {sampleComponents}
-      </div>
+      <div className={styles.samples}>{sampleComponents}</div>
       <div className={styles.sample_count}>{samples.length} samples added</div>
       <div className={styles.button_container}>
         <Button onClick={onAddSample}>Add Sample</Button>

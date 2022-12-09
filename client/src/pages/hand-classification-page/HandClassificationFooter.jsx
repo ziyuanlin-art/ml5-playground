@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import styles from "./HandClassificationPage.module.css";
 import Button from "../../components/button/Button";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +7,11 @@ import { useNavigate } from "react-router-dom";
 function HandClassificationFooter() {
   const links = ["data", "layers", "train", "download"];
   const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate("data", { replace: true });
+    // eslint-disable-next-line
+  }, []);
   
   let index = links.indexOf(window.location.pathname.split("/")[2]);
   

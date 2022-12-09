@@ -31,10 +31,10 @@ function ImageCanvas({ preview, deleteSelf}) {
   }, []);
 
   return (
-    <div className={styles.container} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave}>
+    <span className={styles.container} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave}>
       {isMouseOver? <div className={styles.deleteButton} onClick={deleteSample}>Delete</div>: null}
       <canvas className={styles.canvas} ref={canvasRef}></canvas>
-    </div>
+    </span>
   );
 }
 

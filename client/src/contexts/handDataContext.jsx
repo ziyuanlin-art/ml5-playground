@@ -18,6 +18,7 @@ const HandDataContext = createContext({
   addClass: () => {},
   removeClass: (classId) => {},
   setClassName: (classId, className) => {}
+  
 });
 
 export function HandDataProvider({ children }) {
@@ -39,8 +40,6 @@ export function HandDataProvider({ children }) {
   const getData = () => {
     return handData;
   };
-
-  console.log(handData);
   /**
    * Add a new sample to a given class.
    *
@@ -127,7 +126,7 @@ export function HandDataProvider({ children }) {
    */
   const removeClass = (classId) => {
     setHandData((prevData) => {
-      return prevData.filter((_, index) => index != classId);
+      return prevData.filter((_, index) => index !== classId);
     });
   };
 

@@ -9,7 +9,8 @@ const HandposeContext = createContext({
   handPose: null,
   handPosition: null,
   flattenedPosition: null,
-  modelReady: false
+  modelReady: false,
+  isHandInFrame: () => {}
 });
 /**
  * This is used to provide hand position
@@ -47,11 +48,17 @@ export function HandposeProvider({ children }) {
     return flattenedData;
   };
 
+  const isHandInFrame = () => {
+    return handPositionRef.current && handPositionRef.current.length > 0;
+  };
+
+
   const context = {
     handPose: handposeRef,
     handPosition: handPositionRef,
     flattenedPosition: flattenedPositionRef,
-    modelReady: modelReady
+    modelReady: modelReady,
+    isHandInFrame: isHandInFrame
   };
 
   return <HandposeContext.Provider value={context}>{children}</HandposeContext.Provider>;
