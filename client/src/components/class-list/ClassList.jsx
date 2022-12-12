@@ -20,9 +20,8 @@ function ClassList() {
     addClass();
   };
 
-  let classes = [];
-  data.map((classData, index) => {
-    classes.push(
+  const classes = data.map((classData, index) => {
+    return(
       <Class
         key={classData.id}
         classId={index}

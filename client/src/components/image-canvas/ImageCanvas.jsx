@@ -28,6 +28,7 @@ function ImageCanvas({ preview, deleteSelf}) {
 
   useEffect(() => {
     draw();
+  // eslint-disable-next-line
   }, []);
 
   return (

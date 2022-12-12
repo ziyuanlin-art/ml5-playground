@@ -10,7 +10,6 @@ function WebcamClassificationPreview() {
   const classify = useContext(NeuralNetworkContext).classify;
   const classes = useContext(HandDataContext).getClassNames();
   const flattenedData = useContext(HandposeContext).flattenedPosition;
-  const isHandInFrame = useContext(HandposeContext).isHandInFrame;
   const [results, setResults] = useState([]);
 
 
