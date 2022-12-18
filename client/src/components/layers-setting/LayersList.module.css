@@ -25,3 +25,8 @@
   flex-direction: row;
   align-items: center;
 }
+
+.button {
+  flex: 0 0 2rem;
+  margin: 0 rem;
+}

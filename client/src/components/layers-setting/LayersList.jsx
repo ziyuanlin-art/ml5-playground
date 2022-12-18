@@ -1,11 +1,12 @@
 import React from "react";
-import styles from "./LayersSetting.module.css";
+import styles from "./LayersList.module.css";
 import Layer from "../layer/Layer";
+import StaticLayer from "../layer/StaticLayer";
 import { useContext } from "react";
 import LayersContext from "../../contexts/layersContext";
 import Button from "../button/Button";
 
-function LayersSetting() {
+function LayersList() {
   const { layers } = useContext(LayersContext);
   const { addLayer } = useContext(LayersContext);
 
@@ -18,7 +19,7 @@ function LayersSetting() {
     return (
       <div key={layer.id} className={styles.layer}>
         <div className={styles.line}></div>
-        <Button onClick={() => {addNewLayer(index)}}>+</Button>
+        <Button  onClick={() => {addNewLayer(index)}}>+</Button>
         <Layer index={index} />
       </div>
     );
@@ -26,13 +27,14 @@ function LayersSetting() {
 
   return (
     <div className={styles.container}>
+      <StaticLayer type="Input Layer" />
       {layersList}
       <div className={styles.last_button}>
         <Button onClick={() => {addNewLayer(layers.length)}}>+</Button>
       </div>
-      
+      <StaticLayer type="Output Layer" />
     </div>
   );
 }
 
-export default LayersSetting;
+export default LayersList;

@@ -6,7 +6,13 @@ const LayersContext = createContext({
   addLayer: () => {},
   removeLayer: (index) => {},
   updateLayerUnits: () => {},
-  updateLayerActivation: () => {}
+  updateLayerActivation: () => {},
+  getLayers: () => {},
+  getLearningRate: () => {},
+  getSettings: () => {},
+  setLearningRate: () => {},
+  setEpochs: () => {},
+  setBatchSize: () => {},
 });
 
 export function LayersProvider({ children }) {
@@ -19,17 +25,15 @@ export function LayersProvider({ children }) {
       type: "dense",
       units: 16,
       activation: "relu"
-    },
-    {
-      id: 1,
-      type: "dense",
-      activation: "softmax"
     }
   ];
 
   const [layers, setLayers] = useState(defaultLayers);
-
-  console.log(layers);
+  const [learningRate, setLearningRate] = useState(0.2);
+  const [settings, setSettings] = useState({
+    epochs: 50,
+    batchSize: 12,
+  });
 
   const addLayer = (index) => {
     const newLayer = {
@@ -70,12 +74,59 @@ export function LayersProvider({ children }) {
     });
   };
 
+  const getLayers = () => {
+    let nnLayers = [];
+    layers.forEach((layer) => {
+      nnLayers.push({
+        type: layer.type,
+        units: layer.units,
+        activation: layer.activation
+      });
+    });
+    nnLayers.push({
+      type: "dense",
+      activation: "softmax"
+    });
+    return nnLayers;
+  }
+
+  const getLearningRate = () => {
+    return learningRate;
+  }
+
+  const getSettings = () => {
+    return settings;
+  }
+
+  const setEpochs = (epochs) => {
+    setSettings((prevSettings) => {
+      const newSettings = {...prevSettings};
+      newSettings.epochs = epochs;
+      return newSettings;
+    });
+  }
+
+  const setBatchSize = (batchSize) => {
+    setSettings((prevSettings) => {
+      const newSettings = {...prevSettings};
+      newSettings.batchSize = batchSize;
+      return newSettings;
+    });
+  }
+  console.log(getSettings());
+  console.log(getLearningRate());
   const context = {
     layers: layers,
     addLayer: addLayer,
     removeLayer: removeLayer,
     updateLayerUnits: updateLayerUnits,
-    updateLayerActivation: updateLayerActivation
+    updateLayerActivation: updateLayerActivation,
+    getLayers: getLayers,
+    getLearningRate: getLearningRate,
+    getSettings: getSettings,
+    setLearningRate: setLearningRate,
+    setEpochs: setEpochs,
+    setBatchSize: setBatchSize
   };
 
   return <LayersContext.Provider value={context}>{children}</LayersContext.Provider>;

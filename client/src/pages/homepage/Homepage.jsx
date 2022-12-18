@@ -17,6 +17,7 @@ function Homepage() {
     <div className={styles.page}>
       <div className={styles.title_box}>
         <h1>Welcome to NN Playground</h1>
+        <h3 className={styles.subtitle}>A comprehensive graphical interface for training neural networks</h3>
         <Button onClick={onStartClicked}>Get Started</Button>
       </div>
     </div>

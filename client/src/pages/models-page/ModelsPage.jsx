@@ -12,57 +12,21 @@ function ModelsPage() {
         <ModelCard
           image={placeholder}
           name="Hand Gesture Classification"
-          description="Train a classification model from hand keypoints from Handpose"
+          description="Train a model to recognize hand gestures."
           link="/hand-classification/data"
         />
         <ModelCard
           image={placeholder}
-          name="Pose Classification"
-          description="Train a classification model from body keypoints from Posenet"
+          name="Coming Soon..."
+          description="More training options coming soon!"
         />
-        <ModelCard
-          image={placeholder}
-          name="Face Expression Classification"
-          description="Train a classification model from face keypoints from Facemesh"
-        />
-        <ModelCard
-          image={placeholder}
-          name="CSV/JSON Data Classification"
-          description="Train a classification model from imported CSV/JSON data."
-        />
-        <ModelCard
-          image={placeholder}
-          name="Image Classification"
-          description="Train a classification model from image data."
-        />
-        
       </ModelList>
 
       <ModelList name="Regression">
-      <ModelCard
-          image={placeholder}
-          name="Hand Gesture Regression"
-          description="Train a regression model from hand keypoints from Handpose"
-        />
         <ModelCard
           image={placeholder}
-          name="Pose Regression"
-          description="Train a regression model from body keypoints from Posenet"
-        />
-        <ModelCard
-          image={placeholder}
-          name="Face Expression Regression"
-          description="Train a regression model from face keypoints from Facemesh"
-        />
-        <ModelCard
-          image={placeholder}
-          name="CSV/JSON Data Regression"
-          description="Train a regression model from imported CSV/JSON data."
-        />
-        <ModelCard
-          image={placeholder}
-          name="Image Regression"
-          description="Train a regression model from image data."
+          name="Coming Soon..."
+          description="More training options coming soon!"
         />
       </ModelList>
     </div>

@@ -3,13 +3,47 @@
   width: 14rem;
   padding: 2rem;
   margin: 0 2rem;
-  
+  height: 18rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
+.static_container {
+  background-color: rgb(240, 240, 240);
+  flex:0 0 14rem;
+  padding: 2rem;
+  margin: 0 2rem;
+  height: 18rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
 .button {
   margin: 2rem 0 1rem 0;
 }
 
 .selection {
   margin: 1rem 0;
+}
+
+.right_line {
+  position: absolute;
+  background-color: rgb(0, 0, 0);
+  height: 1px;
+  width: 2rem;
+  top: 50%;
+  left: 100%;
+  z-index: -1;
+}
+
+.left_line {
+  position: absolute;
+  background-color: rgb(0, 0, 0);
+  height: 1px;
+  width: 2rem;
+  top: 50%;
+  left: -2rem;
+  z-index: -1;
 }

@@ -18,7 +18,7 @@ export function NeuralNetworkProvider({ children }) {
   const [epochLoss, setEpochLoss] = useState({ epoch: 0, loss: 0 });
   const [training, setTraining] = useState(false);
 
-  const trainModel = (options, data) => {
+  const trainModel = (options, trainSetting, data) => {
     setTraining(true);
     setModelReady(false);
     model.current = ml5.neuralNetwork(options);
@@ -27,7 +27,7 @@ export function NeuralNetworkProvider({ children }) {
     });
     model.current.normalizeData();
     model.current.train(
-      { epochs: 50 },
+      trainSetting,
       (epoch, loss) => {
         setEpochLoss({ epoch: epoch, loss: loss });
       },

@@ -1,12 +1,19 @@
 import React from "react";
 import styles from "./HandClassificationLayersSection.module.css";
-import LayersSetting from "../../components/layers-setting/LayersSetting";
+import LayersList from "../../components/layers-setting/LayersList";
+import TrainingSettings from "../../components/training-settings/TrainingSettings";
 
 function HandClassificationLayersSection() {
-  
   return (
     <div className={styles.section}>
-      <LayersSetting />
+      <div className={styles.container}>
+        <div className={styles.title}>Layers:</div>
+        <LayersList />
+      </div>
+      <div className={styles.container}>
+        <div className={styles.title}>Settings:</div>
+        <TrainingSettings />
+      </div>
     </div>
   );
 }

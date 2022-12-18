@@ -34,7 +34,6 @@ function Layer({ index }) {
 
   const updateUnits = (unitsIndex) => {
     updateLayerUnits(index, units[unitsIndex]);
-
   };
 
   const updateActivation = (activationIndex) => {
@@ -44,7 +43,7 @@ function Layer({ index }) {
   return (
     <div className={styles.container}>
       <div className={styles.selection}>
-        Units:{" "}
+        Units:
         <DropdownSelector
           options={units}
           defaultOption={layers[index].units}
@@ -52,6 +51,7 @@ function Layer({ index }) {
         />
       </div>
       <div className={styles.selection}>
+        Activation:
         <DropdownSelector
           options={activation}
           defaultOption={layers[index].activation}

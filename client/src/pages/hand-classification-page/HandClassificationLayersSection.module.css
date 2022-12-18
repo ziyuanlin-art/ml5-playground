@@ -2,4 +2,15 @@
   flex: 1 1 auto;
   overflow: hidden;
   min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.title {
+  font-size: 2rem;
+  margin: 0.5rem 2rem;
+}
+.container {
+  margin-bottom: 2rem;
 }
